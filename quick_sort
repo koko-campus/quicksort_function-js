@@ -1,0 +1,20 @@
+const filter = (fx, [n, ...rest]) => n === undefined
+	? [] :
+	fx(n)
+	? (fx, [n, ...filter(fx, rest)])
+	: (fx, filter(fx, rest))
+;
+
+const quickSort = ([x, ...rest]) => x === undefined
+	? []
+	: [
+		...quickSort(filter(n => n <= x, rest)),
+		x,
+		...quickSort(filter(n => x < n, rest))
+	]
+;
+
+/* ********** 使い方 ********** */
+
+console.log(quickSort([5, 8, 2, 7, 10, 0, 15])); // 小さい順に並び替え
+// -> Array(7) [ 0, 2, 5, 7, 8, 10, 15 ]
